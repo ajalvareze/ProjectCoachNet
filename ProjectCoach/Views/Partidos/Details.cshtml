@@ -1,0 +1,82 @@
+﻿@model ProjectCoach.Models.Partido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Partido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Campeonato.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Campeonato.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo1.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo1.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo2.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo2.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jornada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jornada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ubicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resultado1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resultado2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado2)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PartidoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
