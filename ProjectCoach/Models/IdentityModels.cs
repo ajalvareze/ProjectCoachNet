@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Collections.Generic;
 
 namespace ProjectCoach.Models
 {
@@ -17,10 +18,10 @@ namespace ProjectCoach.Models
             // Add custom user claims here
             return userIdentity;            
         }
+    
+        public virtual List<Equipo> Equipos { get; set; }
 
-        public int? EquipoID { get; set; }
-
-        public virtual Equipo Equipo { get; set; }
+        public virtual List<Campeonato> Campeonatos { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

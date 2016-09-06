@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProjectCoach.Models.Campeonato>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mis Campeonatos";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear campeonato", "Create")
 </p>
 <table class="table">
     <tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.DFB)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CampeonatoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CampeonatoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CampeonatoID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.CampeonatoID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.CampeonatoID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.CampeonatoID })
         </td>
     </tr>
 }

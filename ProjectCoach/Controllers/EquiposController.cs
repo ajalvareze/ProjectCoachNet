@@ -17,7 +17,19 @@ namespace ProjectCoach.Controllers
         // GET: Equipos
         public ActionResult Index()
         {
-            return View(db.Equipos.ToList());
+            List<Equipo> equipos = new List<Equipo>();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                string usuario = HttpContext.User.Identity.Name;
+                var user = db.Users.Where(u => u.UserName == usuario).FirstOrDefault();
+                equipos = user.Equipos;
+            }
+            else
+            {
+                //equipos = db.Equipos.ToList();
+            }
+            
+            return View(equipos);
         }
 
         // GET: Equipos/Details/5
@@ -51,6 +63,37 @@ namespace ProjectCoach.Controllers
             if (ModelState.IsValid)
             {
                 db.Equipos.Add(equipo);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(equipo);
+        }
+
+        // GET: Equipos/Create
+        public ActionResult CreateOwn()
+        {
+            return View();
+        }
+
+        // POST: Equipos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOwn([Bind(Include = "EquipoID,Nombre")] Equipo equipo)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Equipos.Add(equipo);
+
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var user = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+                    user.Equipos.Add(equipo);
+                    db.Entry(user).State = EntityState.Modified;
+                }                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

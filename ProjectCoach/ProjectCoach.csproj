@@ -180,6 +180,10 @@
     <Compile Include="Migrations\201609010452026_Initial.Designer.cs">
       <DependentUpon>201609010452026_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609060256318_multiplesEquipos.cs" />
+    <Compile Include="Migrations\201609060256318_multiplesEquipos.Designer.cs">
+      <DependentUpon>201609060256318_multiplesEquipos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Campeonato.cs" />
@@ -260,6 +264,8 @@
     <Content Include="Views\Equipos\Details.cshtml" />
     <Content Include="Views\Equipos\Edit.cshtml" />
     <Content Include="Views\Equipos\Index.cshtml" />
+    <Content Include="Views\Equipos\CreateOwn.cshtml" />
+    <Content Include="Views\Campeonatos\CreateOwn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +281,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609010452026_Initial.resx">
       <DependentUpon>201609010452026_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609060256318_multiplesEquipos.resx">
+      <DependentUpon>201609060256318_multiplesEquipos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,7 +17,18 @@ namespace ProjectCoach.Controllers
         // GET: Campeonatos
         public ActionResult Index()
         {
-            return View(db.Campeonatos.ToList());
+            List<Campeonato> campeonatos = new List<Campeonato>();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                string usuario = HttpContext.User.Identity.Name;
+                var user = db.Users.Where(u => u.UserName == usuario).FirstOrDefault();
+                campeonatos = user.Campeonatos;
+            }
+            else
+            {
+                //equipos = db.Equipos.ToList();
+            }
+            return View(campeonatos);
         }
 
         // GET: Campeonatos/Details/5
@@ -52,6 +63,37 @@ namespace ProjectCoach.Controllers
             {
                 db.Campeonatos.Add(campeonato);
                 db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(campeonato);
+        }
+
+        // GET: Campeonatos/Create
+        public ActionResult CreateOwn()
+        {
+            return View();
+        }
+
+        // POST: Campeonatos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOwn([Bind(Include = "CampeonatoID,Nombre,DFB")] Campeonato campeonato)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Campeonatos.Add(campeonato);
+
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var user = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+                    user.Campeonatos.Add(campeonato);
+                    db.Entry(user).State = EntityState.Modified;
+                }
+
+                db.SaveChanges();                                
                 return RedirectToAction("Index");
             }
 
