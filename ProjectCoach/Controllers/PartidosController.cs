@@ -65,6 +65,49 @@ namespace ProjectCoach.Controllers
             return View(partido);
         }
 
+        // GET: Partidos/Create
+        public ActionResult AgregarACampeonato(int campeonatoID)
+        {
+            Partido Partido = new Partido();
+            var campeonato = db.Campeonatos.Where(c => c.CampeonatoID == campeonatoID).FirstOrDefault();
+
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                string usuario = HttpContext.User.Identity.Name;
+                var user = db.Users.Where(u => u.UserName == usuario).FirstOrDefault();
+                var equiposuser = user.Equipos;
+                var equipo1 = campeonato.Equipos.Intersect(equiposuser).FirstOrDefault();
+                Partido.Equipo1 = equipo1;
+                Partido.Equipo1ID = equipo1.EquipoID;
+            }
+
+            Partido.CampeonatoID = campeonato.CampeonatoID;
+            Partido.Campeonato = campeonato;
+            ViewBag.Equipo2ID = new SelectList(campeonato.Equipos, "EquipoID", "Nombre");
+            return View(Partido);
+        }
+
+        // POST: Partidos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AgregarACampeonato([Bind(Include = "PartidoID,Jornada,Fecha,Ubicacion,Equipo1ID,Equipo2ID,CampeonatoID,Resultado1,Resultado2")] Partido partido)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Partidos.Add(partido);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            //ViewBag.CampeonatoID = new SelectList(db.Campeonatos, "CampeonatoID", "Nombre", partido.CampeonatoID);
+            ViewBag.Equipo1ID = new SelectList(db.Equipos, "EquipoID", "Nombre", partido.Equipo1ID);
+            ViewBag.Equipo2ID = new SelectList(db.Equipos, "EquipoID", "Nombre", partido.Equipo2ID);
+            return View(partido);
+        }
+
         // GET: Partidos/Edit/5
         public ActionResult Edit(int? id)
         {

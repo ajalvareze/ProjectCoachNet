@@ -39,11 +39,44 @@ namespace ProjectCoach.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Campeonato campeonato = db.Campeonatos.Find(id);
+            CampeonatoDetailsVM vm = new CampeonatoDetailsVM();
             if (campeonato == null)
             {
                 return HttpNotFound();
             }
-            return View(campeonato);
+            vm.Campeonato = campeonato;
+            vm.Jugados = campeonato.Partidos.Count;
+            vm.Ganados = 0;
+            vm.Empatados = 0;
+            vm.Perdidos = 0;
+            vm.Puntos = 0;
+            foreach (var partido in vm.Campeonato.Partidos)
+            {
+                if(partido.Resultado1 > partido.Resultado2)
+                {
+                    vm.Ganados = vm.Ganados + 1;
+                    vm.Puntos = vm.Puntos + 3;
+                }
+                else if (partido.Resultado1 == partido.Resultado2)
+                {
+                    vm.Empatados = vm.Empatados + 1;
+                    vm.Puntos = vm.Puntos + 1;
+                }
+                else
+                {
+                    vm.Perdidos = vm.Perdidos + 1;
+                }
+            }
+
+            vm.Promedio = vm.Jugados != 0 ? (decimal)vm.Puntos / (decimal)vm.Jugados: 0; 
+
+            vm.GolesMarcados = campeonato.Partidos.Select(p => p.Resultado1).Sum();
+            vm.GolesSufridos = campeonato.Partidos.Select(p => p.Resultado2).Sum();
+            vm.MarcadosMenosSufridos = vm.GolesMarcados - vm.GolesSufridos;
+            vm.MarcadosPorJuego = vm.Jugados != 0 ? (decimal)vm.GolesMarcados /(decimal)vm.Jugados : 0;
+            vm.SufridosPorJuego = vm.Jugados != 0 ? (decimal)vm.GolesSufridos / (decimal)vm.Jugados : 0;
+            
+            return View(vm);
         }
 
         // GET: Campeonatos/Create
@@ -61,6 +94,13 @@ namespace ProjectCoach.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    string usuario = HttpContext.User.Identity.Name;
+                    var user = db.Users.Where(u => u.UserName == usuario).FirstOrDefault();
+                    user.Campeonatos.Add(campeonato);
+                    db.Entry(user).State = EntityState.Modified;
+                }
                 db.Campeonatos.Add(campeonato);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,7 +132,7 @@ namespace ProjectCoach.Controllers
                     user.Campeonatos.Add(campeonato);
                     db.Entry(user).State = EntityState.Modified;
                 }
-
+                db.Campeonatos.Add(campeonato);
                 db.SaveChanges();                                
                 return RedirectToAction("Index");
             }

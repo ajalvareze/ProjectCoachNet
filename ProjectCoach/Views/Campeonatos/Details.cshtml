@@ -1,34 +1,106 @@
-﻿@model ProjectCoach.Models.Campeonato
+﻿@model ProjectCoach.Models.CampeonatoDetailsVM
 
+<br />
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
+<p>
+    @Html.ActionLink("Agregar Jornada", "AgregarACampeonato", "Partidos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+</p>
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
-<div>
+<div class="form-horizontal">
     <h4>Campeonato</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DFB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DFB)
-        </dd>
-
-    </dl>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Campeonato.Nombre)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(model => model.Campeonato.Nombre)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Campeonato.DFB)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(model => model.Campeonato.DFB)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Jornada</th>
+                    <th>Locacion</th>
+                    <th>Fecha</th>
+                    <th></th>
+                    <th></th>
+                    <th>Oponente</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var partido in Model.Campeonato.Partidos)
+                {
+                    <tr>
+                        <td>@partido.Jornada</td>
+                        <td>@partido.Ubicacion</td>
+                        <td>@partido.Fecha</td>
+                        <td>@partido.Resultado1</td>
+                        <td>@partido.Resultado2</td>
+                        <td>@partido.Equipo2.Nombre</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <hr />
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CampeonatoID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-md-5">
+        <dl class="dl-horizontal">
+            <dt>Partidos Jugados</dt>
+            <dd>@Html.DisplayFor(model => model.Jugados)</dd>
+
+            <dt>Partidos Ganados</dt>
+            <dd>@Html.DisplayFor(model => model.Ganados)</dd>
+
+            <dt>Partidos Empatados</dt>
+            <dd>@Html.DisplayFor(model => model.Empatados)</dd>
+
+            <dt>Partidos Perdidos</dt>
+            <dd>@Html.DisplayFor(model => model.Perdidos)</dd>
+        </dl>
+
+    </div>
+    <div class="col-md-5">
+        <dl class="dl-horizontal">
+            <dt>Total de Puntos</dt>
+            <dd>@Html.DisplayFor(model => model.Puntos)</dd>
+
+            <dt>Promedio Puntos / juego</dt>
+            <dd>@Html.DisplayFor(model => model.Promedio)</dd>
+
+            <dt>Goles Marcados</dt>
+            <dd>@Html.DisplayFor(model => model.GolesMarcados)</dd>
+
+            <dt>GM / juego</dt>
+            <dd>@Html.DisplayFor(model => model.MarcadosPorJuego)</dd>
+
+            <dt>Goles Sufridos</dt>
+            <dd>@Html.DisplayFor(model => model.GolesSufridos)</dd>
+
+            <dt>GS / juego</dt>
+            <dd>@Html.DisplayFor(model => model.SufridosPorJuego)</dd>
+
+            <dt>Diferencia GM - GS</dt>
+            <dd>@Html.DisplayFor(model => model.MarcadosMenosSufridos)</dd>
+
+        </dl>
+
+    </div>
+</div>
+
