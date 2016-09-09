@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Crear campeonato", "Create")
+    @*@Html.ActionLink("Crear campeonato", "Create")*@
 </p>
 <table class="table">
     <tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.DFB)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.CampeonatoID }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.CampeonatoID }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.CampeonatoID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.CampeonatoID }, new {  @class="btn btn-warning" }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.CampeonatoID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.CampeonatoID }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

@@ -5,6 +5,7 @@
     ViewBag.Title = "Detalles";
 }
 <p>
+    @Html.ActionLink("Agregar Equipo", "AgregarEquipo", "Campeonatos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-warning" })
     @Html.ActionLink("Agregar Jornada", "AgregarACampeonato", "Partidos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
     @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
 </p>

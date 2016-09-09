@@ -186,8 +186,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AgregarEquipoCampeonatoVM.cs" />
     <Compile Include="Models\Campeonato.cs" />
     <Compile Include="Models\CampeonatoDetailsVM.cs" />
+    <Compile Include="Models\CrearCampeonatoVM.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Views\Equipos\CreateOwn.cshtml" />
     <Content Include="Views\Campeonatos\CreateOwn.cshtml" />
     <Content Include="Views\Partidos\AgregarACampeonato.cshtml" />
+    <Content Include="Views\Campeonatos\AgregarEquipo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

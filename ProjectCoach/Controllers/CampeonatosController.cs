@@ -52,7 +52,7 @@ namespace ProjectCoach.Controllers
             vm.Puntos = 0;
             foreach (var partido in vm.Campeonato.Partidos)
             {
-                if(partido.Resultado1 > partido.Resultado2)
+                if (partido.Resultado1 > partido.Resultado2)
                 {
                     vm.Ganados = vm.Ganados + 1;
                     vm.Puntos = vm.Puntos + 3;
@@ -68,14 +68,14 @@ namespace ProjectCoach.Controllers
                 }
             }
 
-            vm.Promedio = vm.Jugados != 0 ? (decimal)vm.Puntos / (decimal)vm.Jugados: 0; 
+            vm.Promedio = vm.Jugados != 0 ? (decimal)vm.Puntos / (decimal)vm.Jugados : 0;
 
             vm.GolesMarcados = campeonato.Partidos.Select(p => p.Resultado1).Sum();
             vm.GolesSufridos = campeonato.Partidos.Select(p => p.Resultado2).Sum();
             vm.MarcadosMenosSufridos = vm.GolesMarcados - vm.GolesSufridos;
-            vm.MarcadosPorJuego = vm.Jugados != 0 ? (decimal)vm.GolesMarcados /(decimal)vm.Jugados : 0;
+            vm.MarcadosPorJuego = vm.Jugados != 0 ? (decimal)vm.GolesMarcados / (decimal)vm.Jugados : 0;
             vm.SufridosPorJuego = vm.Jugados != 0 ? (decimal)vm.GolesSufridos / (decimal)vm.Jugados : 0;
-            
+
             return View(vm);
         }
 
@@ -94,6 +94,7 @@ namespace ProjectCoach.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
                     string usuario = HttpContext.User.Identity.Name;
@@ -110,8 +111,12 @@ namespace ProjectCoach.Controllers
         }
 
         // GET: Campeonatos/Create
-        public ActionResult CreateOwn()
+        public ActionResult CreateOwn(int? EquipoID)
         {
+            if (EquipoID != null)
+            {
+                var equipo = db.Equipos.Where(e => e.EquipoID == EquipoID).FirstOrDefault();
+            }
             return View();
         }
 
@@ -120,10 +125,16 @@ namespace ProjectCoach.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateOwn([Bind(Include = "CampeonatoID,Nombre,DFB")] Campeonato campeonato)
+        public ActionResult CreateOwn([Bind(Include = "CampeonatoID,Nombre,DFB")] Campeonato campeonato, int? EquipoID)
         {
-            if (ModelState.IsValid)
+            Equipo equipo;
+
+            if (ModelState.IsValid && EquipoID != null)
             {
+
+                equipo = db.Equipos.Where(e => e.EquipoID == EquipoID).FirstOrDefault();
+
+                campeonato.Equipos.Add(equipo);
                 db.Campeonatos.Add(campeonato);
 
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -133,11 +144,53 @@ namespace ProjectCoach.Controllers
                     db.Entry(user).State = EntityState.Modified;
                 }
                 db.Campeonatos.Add(campeonato);
-                db.SaveChanges();                                
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(campeonato);
+        }
+
+        // GET: Equipos/Create
+        public ActionResult AgregarEquipo(int? CampeonatoID)
+        {
+            AgregarEquipoCampeonatoVM vm = new AgregarEquipoCampeonatoVM();
+            if (CampeonatoID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Campeonato campeonato = db.Campeonatos.Find(CampeonatoID);
+            if (campeonato == null)
+            {
+                return HttpNotFound();
+            }
+            vm.CampeonatoID = CampeonatoID;
+            vm.Equipo = new Equipo();
+            return View(vm);
+        }
+
+        // POST: Equipos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AgregarEquipo(AgregarEquipoCampeonatoVM vm)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (vm.CampeonatoID == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Campeonato campeonato = db.Campeonatos.Find(vm.CampeonatoID);
+                vm.Equipo.Campeonatos.Add(campeonato);                
+                db.Equipos.Add(vm.Equipo);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(vm);
         }
 
         // GET: Campeonatos/Edit/5

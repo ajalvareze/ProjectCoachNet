@@ -65,7 +65,8 @@
 }
 
 <div>
-    @Html.ActionLink("Volver", "Details", "Campeonato", new { id = Model.CampeonatoID }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Volver", "Details", "Campeonatos", new { id = Model.CampeonatoID }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Agregar Equipo", "AgregarEquipo", "Campeonatos", new { id = Model.CampeonatoID }, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {
