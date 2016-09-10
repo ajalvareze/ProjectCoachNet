@@ -8,20 +8,29 @@
     <h1>COACHMEISTER 3000</h1>
 </div>
 
-<div class="row">    
+<div class="row">
     @if (User.Identity.IsAuthenticated)
     {
         <div class="col-md-5">
-            <h2>Mis equipos</h2>            
-            @Html.Partial("EquiposPartial", Model.Equipos)
+            <h2>Mis equipos</h2>
+            @if (Model.Equipos.Count != 0)
+            {
+                @Html.Partial("EquiposPartial", Model.Equipos)
+            }
+
+            @Html.ActionLink("Crear equipo", "CreateOwn", null, new { @class = "btn btn-primary" })
         </div>
         <div class="col-md-5">
             <h2>Mis campeonatos</h2>
-            @Html.Partial("CampeonatosPartial", Model.Campeonatos)
+            @if (Model.Campeonatos.Count != 0)
+            {
+                @Html.Partial("CampeonatosPartial", Model.Campeonatos)
+            }
+
         </div>
-        @*<div class="col-md-4">
-            <h2>.</h2>            
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>*@
-    }    
+            @*<div class="col-md-4">
+                    <h2>.</h2>
+                    <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+                </div>*@
+    }
 </div>

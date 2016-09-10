@@ -273,7 +273,7 @@
     <Content Include="Views\Equipos\Index.cshtml" />
     <Content Include="Views\Equipos\CreateOwn.cshtml" />
     <Content Include="Views\Campeonatos\CreateOwn.cshtml" />
-    <Content Include="Views\Partidos\AgregarACampeonato.cshtml" />
+    <Content Include="Views\Campeonatos\AgregarPartidoACampeonato.cshtml" />
     <Content Include="Views\Campeonatos\AgregarEquipo.cshtml" />
     <Content Include="Views\Shared\CampeonatosPartial.cshtml" />
     <Content Include="Views\Shared\EquiposPartial.cshtml" />

@@ -4,33 +4,17 @@
 @{
     ViewBag.Title = "Detalles";
 }
-<p>
-    @Html.ActionLink("Agregar Equipo", "AgregarEquipo", "Campeonatos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-warning" })
-    @Html.ActionLink("Agregar Jornada", "AgregarACampeonato", "Partidos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
+<p>    
+    
     @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
 </p>
 
-<h2>@ViewBag.Title</h2>
 
 <div class="form-horizontal">
-    <h4>Campeonato</h4>
+    <h2>@Html.DisplayFor(model => model.Campeonato.Nombre)</h2>
+    <h4>DFB: @Html.DisplayFor(model => model.Campeonato.DFB)</h4>
     <hr />
-    <div class="row">
-        <div class="form-group">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.Campeonato.Nombre)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(model => model.Campeonato.Nombre)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.Campeonato.DFB)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(model => model.Campeonato.DFB)
-            </div>
-        </div>
-    </div>
+    
     <div class="row">
         <table class="table table-bordered">
             <thead>
@@ -57,6 +41,7 @@
                 }
             </tbody>
         </table>
+        @Html.ActionLink("Agregar Jornada", "AgregarACampeonato", "Partidos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
     </div>
     <hr />
 </div>
@@ -103,5 +88,14 @@
         </dl>
 
     </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-10 control-label">Equipos</div>        
+    </div>
+    <div class="row">
+        @Html.Partial("EquiposPartial", Model.Campeonato.Equipos)
+    </div>
+    @Html.ActionLink("Agregar Equipo", "AgregarEquipo", "Campeonatos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-warning" })
 </div>
 

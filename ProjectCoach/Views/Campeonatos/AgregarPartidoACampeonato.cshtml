@@ -1,12 +1,5 @@
 ﻿@model ProjectCoach.Models.Partido
 
-@{
-    ViewBag.Title = "Agregar partido";
-}
-
-<h2>@ViewBag.Title</h2>
-
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -14,23 +7,21 @@
     <div class="form-horizontal">
         @Html.HiddenFor(model => model.CampeonatoID)
 
-        <h4>Partido</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Jornada, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Jornada, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.EditorFor(model => model.Jornada, new { htmlAttributes = new { @class = "form-control input-sm", @type = "number" } })
                 @Html.ValidationMessageFor(model => model.Jornada, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control input-sm", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Ubicacion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control input-sm" } })
                 @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,15 +34,15 @@
                 @Html.ValidationMessageFor(model => model.Equipo2ID, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Resultado1, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.EditorFor(model => model.Resultado1, new { htmlAttributes = new { @class = "form-control input-sm", @type = "number" } })
                 @Html.ValidationMessageFor(model => model.Resultado1, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Resultado2, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.EditorFor(model => model.Resultado2, new { htmlAttributes = new { @class = "form-control input-sm", @type = "number" } })
                 @Html.ValidationMessageFor(model => model.Resultado2, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                @Html.DropDownList("Equipo2ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Equipo2ID", null, htmlAttributes: new { @class = "form-control input-sm" })
                 @Html.ValidationMessageFor(model => model.Equipo2ID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,10 +55,10 @@
     </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Volver", "Details", "Campeonatos", new { id = Model.CampeonatoID }, new { @class = "btn btn-danger" })
     @Html.ActionLink("Agregar Equipo", "AgregarEquipo", "Campeonatos", new { id = Model.CampeonatoID }, new { @class = "btn btn-primary" })
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
