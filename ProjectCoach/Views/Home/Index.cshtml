@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProjectCoach.Models.HomeViewModel
+
+@{
     ViewBag.Title = "COACHMEISTER 3000";
 }
 
@@ -9,9 +11,13 @@
 <div class="row">    
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="col-md-4">
+        <div class="col-md-5">
             <h2>Mis equipos</h2>            
-            @Html.ActionLink("Equipos", "Index", "Equipos")
+            @Html.Partial("EquiposPartial", Model.Equipos)
+        </div>
+        <div class="col-md-5">
+            <h2>Mis campeonatos</h2>
+            @Html.Partial("CampeonatosPartial", Model.Campeonatos)
         </div>
         @*<div class="col-md-4">
             <h2>.</h2>            

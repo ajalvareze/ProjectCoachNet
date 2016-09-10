@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProjectCoach.Models.Campeonato>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Campeonato
+            </th>
+            <th>
+                DFB
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    @foreach (var campeonato in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @campeonato.Nombre
+                </td>
+                <td>
+                    @campeonato.DFB
+                </td>
+                <td>
+                    @Html.ActionLink("Ir", "Details", "Campeonatos", new { @id = campeonato.CampeonatoID }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

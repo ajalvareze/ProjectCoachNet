@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectCoach.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,22 @@ namespace ProjectCoach.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel vm = new HomeViewModel();
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+                vm.Equipos = user.Equipos;
+                vm.Campeonatos = user.Campeonatos;
+
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         public ActionResult About()

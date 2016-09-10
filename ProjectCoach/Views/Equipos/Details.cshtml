@@ -22,37 +22,9 @@
     </dl>
     <hr />
     <h4>Campeonatos</h4>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>
-                    Campeonato
-                </th>
-                <th>
-                    DFB
-                </th>
-                <th>
+    
+    @Html.Partial("CampeonatosPartial", Model.Campeonatos)
 
-                </th>
-            </tr>
-        </thead>
-        @foreach (var campeonato in Model.Campeonatos)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @campeonato.Nombre
-                    </td>
-                    <td>
-                        @campeonato.DFB
-                    </td>
-                    <td>
-                        @Html.ActionLink("Ir", "Details", "Campeonatos" , new { @id = campeonato.CampeonatoID }, new { @class = "btn btn-success" })
-                    </td>
-                </tr>
-            </tbody>
-        }        
-    </table>
     @Html.ActionLink("Crear campeonato", "CreateOwn", "Campeonatos", new { EquipoID = Model.EquipoID }, new { @class = "btn btn-primary" })
 </div>
 <hr />

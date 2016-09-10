@@ -9,25 +9,5 @@
 <p>
     @Html.ActionLink("Crear equipo", "CreateOwn", null, new { @class = "btn btn-primary"})    
 </p>
-<table class="table table-responsive table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @*@Html.ActionLink("Editar", "Edit", new { id=item.EquipoID }, new { @class = "btn btn-warning" }) |*@
-            @Html.ActionLink("Detalles", "Details", new { id=item.EquipoID }, new { @class = "btn btn-primary btn-sm" }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.EquipoID }, new { @class = "btn btn-danger btn-sm" })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Partial("EquiposPartial", Model)
