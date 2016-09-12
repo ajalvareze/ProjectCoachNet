@@ -25,6 +25,7 @@ namespace ProjectCoach
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/tema.css",
                       "~/Content/site.css"));
         }
     }
