@@ -10,5 +10,7 @@ namespace ProjectCoach.Models
     {
         public Equipo Equipo { get; set; }
         public int? CampeonatoID { get; set; }
+
+        public string NombreCampeonato { get; set; }
     }
 }

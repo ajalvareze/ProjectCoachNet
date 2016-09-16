@@ -165,6 +165,7 @@ namespace ProjectCoach.Controllers
                 return HttpNotFound();
             }
             vm.CampeonatoID = CampeonatoID;
+            vm.NombreCampeonato = campeonato.Nombre;
             vm.Equipo = new Equipo();
             return View(vm);
         }
@@ -184,12 +185,12 @@ namespace ProjectCoach.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Campeonato campeonato = db.Campeonatos.Find(vm.CampeonatoID);
-                vm.Equipo.Campeonatos.Add(campeonato);                
+                vm.Equipo.Campeonatos.Add(campeonato);
+                
                 db.Equipos.Add(vm.Equipo);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Campeonatos", campeonato.CampeonatoID);
-            }
-
+            }            
             return View(vm);
         }
 
