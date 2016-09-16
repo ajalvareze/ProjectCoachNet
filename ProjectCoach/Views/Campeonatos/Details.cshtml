@@ -33,7 +33,7 @@
                     <tr>
                         <td>@partido.Jornada</td>
                         <td>@partido.Ubicacion</td>
-                        <td>@partido.Fecha</td>
+                        <td>@partido.Fecha.ToShortDateString()</td>
                         <td>@partido.Resultado1</td>
                         <td>@partido.Resultado2</td>
                         <td>@partido.Equipo2.Nombre</td>
@@ -41,7 +41,7 @@
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Agregar Jornada", "AgregarACampeonato", "Partidos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Agregar Jornada", "AgregarPartidoACampeonato", "Campeonatos", new { @campeonatoID = Model.Campeonato.CampeonatoID }, new { @class = "btn btn-success" })
     </div>
     <hr />
 </div>

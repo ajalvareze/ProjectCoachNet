@@ -187,7 +187,7 @@ namespace ProjectCoach.Controllers
                 vm.Equipo.Campeonatos.Add(campeonato);                
                 db.Equipos.Add(vm.Equipo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Campeonatos", campeonato.CampeonatoID);
             }
 
             return View(vm);
@@ -261,7 +261,7 @@ namespace ProjectCoach.Controllers
             {
                 db.Partidos.Add(partido);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Campeonatos", partido.CampeonatoID);
             }
 
             //ViewBag.CampeonatoID = new SelectList(db.Campeonatos, "CampeonatoID", "Nombre", partido.CampeonatoID);
